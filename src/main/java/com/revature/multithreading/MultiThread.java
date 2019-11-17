@@ -7,7 +7,13 @@ public class MultiThread {
 		for (int i = 0; i < 8; i++) {
 			Multithreading object = new Multithreading();
 			object.start();
-		//	object.getName();
+			try {
+				Thread.sleep(3600);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			object.getName();
 		}
 	}
 
