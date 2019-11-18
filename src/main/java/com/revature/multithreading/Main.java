@@ -1,47 +1,55 @@
 package com.revature.multithreading;
 
-class Example extends Thread{
-	   public void run()
-	   {
-			
+import java.util.Random;
 
-	       for(int i=1;i<=11;i++)
-	       {
-	           try {
-				sleep(200);
-				System.out.println("Thread " + Thread.currentThread().getName() + " is running");
-				 System.out.println(i);
+class Example extends Thread {
+	private enum Coin {
+		Heads, Tails
+	};
 
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
+	public void run() {
+		int headCount = 0;
+		int tailCount = 0;
+		int probability = 0;
+		for (int i = 1; i <= 5; i++) {
+			Random randomNumber = new Random();
+			int result = randomNumber.nextInt(2);
+
+			if (result == 0) {
+				System.out.println(Coin.Heads);
+				System.out.println("Heads flipped");
+				headCount = headCount + 1;
+
+			} else {
+				System.out.println(Coin.Tails);
+				System.out.println("Tails flipped");
+				tailCount = tailCount + 1;
+
 			}
-	       }
-	   }
+
+		}
+		System.out.println("tails flipped:" + tailCount);
+		System.out.println("Heads flipped:" + headCount);
+		probability = (headCount + tailCount) / 5;
+		if (probability == 1) {
+			System.out.println("probability is 1");
+		} else {
+			System.out.println("Conditon failed");
+		}
+
 	}
-	class Test extends Thread{
-	   public void run()
-	   {
-	         for(int i=65;i<=75;i++)
-	       {
-	           System.out.println((char)i);
-	           try {
-					sleep(200);
-				} catch (InterruptedException e) {
-					
-					e.printStackTrace();
-				}
-	       }
-	   }
+}
+
+public class Main {
+	public static void main(String[] args) {
+		Example example = new Example();
+		example.start();
+//		example.setName("HEADS");
+//		example.setPriority(1);
+//		Example example1 = new Example();
+//		example1.start();
+//		example1.setName("Tails");
+//		example1.setPriority(10);
+
 	}
-	public class Main
-	{
-	    public static void main(String[] args) {
-	    Example example = new Example();
-	    Example example1 = new Example();
-	    example.setName("HEADS");
-	    example.start();
-	    example1.setName("Tails");
-	    example1.start(); 
-	    }
-	}
+}
